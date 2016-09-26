@@ -186,7 +186,7 @@ public class GenericPojoDao {
             PreparedStatement indexTableInsertStatement =
                 sqlQueryBuilder.createUpdateStatementForIndexTable(connection, abstractIndexEntity);
             int numRowsUpdated = indexTableInsertStatement.executeUpdate();
-            System.out.println("numRowsUpdated: " + numRowsUpdated);
+            LOG.debug("numRowsUpdated: " + numRowsUpdated);
             return numRowsUpdated;
           }
         }
@@ -360,7 +360,7 @@ public class GenericPojoDao {
     ResultSet resultSet = findAllStatement.executeQuery();
     List<? extends AbstractEntity> entities = genericResultSetMapper.mapAll(resultSet, entityClass);
     for (AbstractEntity entity : entities) {
-      System.out.println(entity);
+      LOG.debug("{}", entity);
     }
   }
 
@@ -428,7 +428,7 @@ public class GenericPojoDao {
       connection.commit();
       return t;
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.error("Exception while executing query task", e);
       return defaultReturnValue;
     }
   }
